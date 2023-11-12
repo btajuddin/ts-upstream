@@ -1,4 +1,4 @@
-module ts-upstream
+module github.com/btajuddin/ts-upstream
 
 go 1.20
 
