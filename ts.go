@@ -3,6 +3,7 @@ package ts_upstream
 import (
 	"errors"
 	"github.com/thanhpk/randstr"
+	"gvisor.dev/gvisor/pkg/log"
 	"net/http"
 	"os"
 	"tailscale.com/tsnet"
@@ -19,13 +20,15 @@ func (t *TsStruct) SetUp() error {
 	}
 
 	hostnameBase, hostnameOk := os.LookupEnv("TS_BASE_HOSTNAME")
-	_, authKeyOk := os.LookupEnv("TS_AUTHKEY")
+	authKey, authKeyOk := os.LookupEnv("TS_AUTHKEY")
 
 	if !hostnameOk || !authKeyOk {
 		return errors.New("TS_BASE_HOSTNAME and TS_AUTHKEY are required")
 	}
 
 	hostname := hostnameBase + "-" + randstr.Base62(5)
+
+	log.Infof("Base hostname: %s, hostname: %s, authkey: %s", hostnameBase, hostname, authKey)
 
 	t.server = &tsnet.Server{
 		Dir:       "/var/run/tailscale",

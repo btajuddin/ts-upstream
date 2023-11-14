@@ -9,7 +9,7 @@ import (
 var server = new(TsStruct)
 
 func init() {
-	caddy.RegisterModule(TsUpstreamModule{})
+	caddy.RegisterModule(&TsUpstreamModule{})
 }
 
 type TsUpstreamModule struct {
@@ -28,7 +28,7 @@ func (m TsUpstreamModule) UnmarshalCaddyfile(_ *caddyfile.Dispenser) error {
 	return nil
 }
 
-func (m TsUpstreamModule) CaddyModule() caddy.ModuleInfo {
+func (m *TsUpstreamModule) CaddyModule() caddy.ModuleInfo {
 
 	return caddy.ModuleInfo{
 		ID: "http.reverse_proxy.transport.tailscale_http",
