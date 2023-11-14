@@ -1,10 +1,11 @@
-module github.com/btajuddin/ts-upstream
+module ts-upstream
 
-go 1.20
+go 1.21
 
 require (
 	github.com/caddyserver/caddy/v2 v2.7.5
 	github.com/thanhpk/randstr v1.0.6
+	go.uber.org/zap v1.26.0
 	tailscale.com v1.52.1
 )
 
@@ -85,7 +86,6 @@ require (
 	github.com/zeebo/blake3 v0.2.3 // indirect
 	go.uber.org/mock v0.3.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	go.uber.org/zap v1.26.0 // indirect
 	go4.org/mem v0.0.0-20220726221520-4f986261bf13 // indirect
 	go4.org/netipx v0.0.0-20230824141953-6213f710f925 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
