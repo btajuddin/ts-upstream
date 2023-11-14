@@ -19,16 +19,15 @@ func (t *TsStruct) SetUp() error {
 	}
 
 	hostnameBase, hostnameOk := os.LookupEnv("TS_BASE_HOSTNAME")
-	authKey, authKeyOk := os.LookupEnv("TS_AUTH_KEY")
+	_, authKeyOk := os.LookupEnv("TS_AUTHKEY")
 
 	if !hostnameOk || !authKeyOk {
-		return errors.New("TS_BASE_HOSTNAME and TS_AUTH_KEY are required")
+		return errors.New("TS_BASE_HOSTNAME and TS_AUTHKEY are required")
 	}
 
 	hostname := hostnameBase + "-" + randstr.Base62(5)
 
 	t.server = &tsnet.Server{
-		AuthKey:   authKey,
 		Dir:       "/var/run/tailscale",
 		Ephemeral: true,
 		Hostname:  hostname,
