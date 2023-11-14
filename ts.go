@@ -21,7 +21,7 @@ func (t *TsStruct) SetUp(ctx caddy.Context) error {
 	}
 
 	hostnameBase, hostnameOk := os.LookupEnv("TS_BASE_HOSTNAME")
-	authKey, authKeyOk := os.LookupEnv("TS_AUTHKEY")
+	_, authKeyOk := os.LookupEnv("TS_AUTHKEY")
 
 	if !hostnameOk || !authKeyOk {
 		return errors.New("TS_BASE_HOSTNAME and TS_AUTHKEY are required")
@@ -29,7 +29,7 @@ func (t *TsStruct) SetUp(ctx caddy.Context) error {
 
 	hostname := hostnameBase + "-" + randstr.Base62(5)
 
-	ctx.Logger().Info("", zap.String("base_hostname", hostnameBase), zap.String("hostname", hostname), zap.String("auth_key", authKey))
+	ctx.Logger().Info("", zap.String("base_hostname", hostnameBase), zap.String("hostname", hostname))
 
 	t.server = &tsnet.Server{
 		Dir:       "/var/run/tailscale",
