@@ -34,7 +34,9 @@ func (t *TsStruct) SetUp() error {
 		Hostname:  hostname,
 	}
 
-	return nil
+	err := t.server.Start()
+
+	return err
 }
 
 func (t *TsStruct) Close() error {
