@@ -15,15 +15,15 @@ func init() {
 type TsUpstreamModule struct {
 }
 
-func (m TsUpstreamModule) Cleanup() error {
+func (m *TsUpstreamModule) Cleanup() error {
 	return server.Close()
 }
 
-func (m TsUpstreamModule) RoundTrip(request *http.Request) (*http.Response, error) {
+func (m *TsUpstreamModule) RoundTrip(request *http.Request) (*http.Response, error) {
 	return server.Execute(request)
 }
 
-func (m TsUpstreamModule) UnmarshalCaddyfile(_ *caddyfile.Dispenser) error {
+func (m *TsUpstreamModule) UnmarshalCaddyfile(_ *caddyfile.Dispenser) error {
 	// no-op
 	return nil
 }
@@ -38,6 +38,6 @@ func (m *TsUpstreamModule) CaddyModule() caddy.ModuleInfo {
 	}
 }
 
-func (m *TsUpstreamModule) Provision(_ caddy.Context) error {
-	return server.SetUp()
+func (m *TsUpstreamModule) Provision(ctx caddy.Context) error {
+	return server.SetUp(ctx)
 }

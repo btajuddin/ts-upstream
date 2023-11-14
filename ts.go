@@ -2,8 +2,9 @@ package ts_upstream
 
 import (
 	"errors"
+	"github.com/caddyserver/caddy/v2"
 	"github.com/thanhpk/randstr"
-	"gvisor.dev/gvisor/pkg/log"
+	"go.uber.org/zap"
 	"net/http"
 	"os"
 	"tailscale.com/tsnet"
@@ -14,7 +15,7 @@ type TsStruct struct {
 	server *tsnet.Server
 }
 
-func (t *TsStruct) SetUp() error {
+func (t *TsStruct) SetUp(ctx caddy.Context) error {
 	if t.inited {
 		return nil
 	}
@@ -28,7 +29,7 @@ func (t *TsStruct) SetUp() error {
 
 	hostname := hostnameBase + "-" + randstr.Base62(5)
 
-	log.Infof("Base hostname: %s, hostname: %s, authkey: %s", hostnameBase, hostname, authKey)
+	ctx.Logger().Info("", zap.String("base_hostname", hostnameBase), zap.String("hostname", hostname), zap.String("auth_key", authKey))
 
 	t.server = &tsnet.Server{
 		Dir:       "/var/run/tailscale",
