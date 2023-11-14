@@ -39,6 +39,8 @@ func (t *TsStruct) SetUp(ctx caddy.Context) error {
 
 	err := t.server.Start()
 
+	t.inited = true
+
 	return err
 }
 
